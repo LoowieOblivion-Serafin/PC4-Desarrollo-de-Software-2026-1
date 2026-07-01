@@ -1,0 +1,15 @@
+{
+  "name": "petapp-gof",
+  "version": "1.0.0",
+  "description": "PetApp: reporte mascotas perdidas, buscador por imagen y red de cuidadores. Patrones GoF en Node.js + Python.",
+  "main": "src/petapp/app.js",
+  "scripts": {
+    "start": "node src/petapp/app.js",
+    "test:builder":  "node src/builder/examples/petreport/PetReportTest.js",
+    "test:observer": "node src/observer/examples/lostpetalerts/LostPetAlertsTest.js",
+    "test:proxy":    "node src/proxy/examples/owneranonymizer/AnonymizerTest.js",
+    "test:facade":   "node src/facade/examples/imagesearch/ImageSearchTest.js"
+  },
+  "author": "alvaro.taipe.c@uni.pe",
+  "license": "MIT"
+}
