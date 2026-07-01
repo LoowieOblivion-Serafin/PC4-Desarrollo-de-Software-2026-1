@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetApp — Reporte, Buscador y Cuidadores</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>🐾 PetApp</h1>
+    <p>Reporte de mascotas perdidas · Buscador por imagen · Red de cuidadores</p>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-target="tab-report">1. Reportar Perdida</button>
+    <button class="tab" data-target="tab-search">2. Buscador por Imagen</button>
+    <button class="tab" data-target="tab-caretakers">3. Cuidadores</button>
+  </nav>
+
+  <main>
+    <!-- ================= TAB 1: REPORTE ================= -->
+    <section id="tab-report" class="panel active">
+      <h2>Reportar mascota perdida</h2>
+      <form id="form-report">
+        <fieldset>
+          <legend>Mascota (RF1.1)</legend>
+          <label>Nombre <input name="name" value="Firulais" required></label>
+          <label>Especie <input name="species" value="Perro" required></label>
+          <label>Raza <input name="breed" value="Labrador"></label>
+          <label>URL Foto <input name="photoUrl" value="cdn/pic.jpg"></label>
+          <label>Descripción <textarea name="description">Collar rojo, timido</textarea></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Ubicación (RF1.2)</legend>
+          <label>Latitud <input name="lat" value="-12.0464" step="any" required></label>
+          <label>Longitud <input name="lon" value="-77.0428" step="any" required></label>
+          <label>Radio de alerta (km) <input name="radiusKm" type="number" value="1" step="0.1"></label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Dueño (privado, RNF1.2)</legend>
+          <label>Nombre <input name="ownerName" value="Ana Perez"></label>
+          <label>Teléfono <input name="ownerPhone" value="999888777"></label>
+          <label>Email <input name="ownerEmail" value="ana@mail.com"></label>
+          <label>DNI <input name="ownerDni" value="12345678"></label>
+          <label>Alias público <input name="alias" value="Dueno#4821"></label>
+        </fieldset>
+
+        <button type="submit">Enviar reporte + Notificar</button>
+      </form>
+      <div id="report-result" class="result"></div>
+    </section>
+
+    <!-- ================= TAB 2: BUSCADOR ================= -->
+    <section id="tab-search" class="panel">
+      <h2>Buscador multipropósito por imagen (Facade + Strategy + Abstract Factory + Adapter)</h2>
+      <form id="form-search">
+        <label>Formato imagen
+          <select name="vendorFormat">
+            <option value="JPEG">JPEG</option>
+            <option value="PNG">PNG</option>
+          </select>
+        </label>
+
+        <label>Archivo (JPEG/PNG) — RF2.1
+          <input type="file" name="file" accept="image/jpeg,image/png">
+        </label>
+
+        <fieldset>
+          <legend>Intención (RF2.2, obligatorio)</legend>
+          <label><input type="radio" name="intent" value="ADOPTION" checked> Adopción (ONGs)</label>
+          <label><input type="radio" name="intent" value="SALE"> Venta (criaderos certificados)</label>
+          <label><input type="radio" name="intent" value="VERIFY_LOSS"> Verificar pérdida</label>
+        </fieldset>
+
+        <button type="submit">Buscar</button>
+      </form>
+      <div id="search-result" class="result"></div>
+    </section>
+
+    <!-- ================= TAB 3: CUIDADORES ================= -->
+    <section id="tab-caretakers" class="panel">
+      <h2>Red de cuidadores</h2>
+
+      <form id="form-caretaker">
+        <fieldset>
+          <legend>Perfil (RF3.1 + RF3.2)</legend>
+          <label>Rol
+            <select name="role">
+              <option value="SOLIDARIO">Solidario</option>
+              <option value="PROFESIONAL" selected>Profesional</option>
+              <option value="ESPECIALIZADO">Especializado</option>
+            </select>
+          </label>
+          <label>Nombre <input name="name" value="Luis" required></label>
+          <label>Especialidad (solo Especializado) <input name="especialidad" value="postoperatorio"></label>
+          <label>Tamaño máx aceptado
+            <select name="maxSize">
+              <option value="">(sin restricción)</option>
+              <option value="small">Pequeño</option>
+              <option value="medium" selected>Mediano</option>
+              <option value="large">Grande</option>
+            </select>
+          </label>
+          <label>Solo especies (coma-separadas) <input name="allowedSpecies" value="Perro,Gato"></label>
+          <label><input type="checkbox" name="noMedication" checked> Rechaza administrar medicamentos</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Validación DNI (RNF3.1)</legend>
+          <label>DNI <input name="dni" value="12345678" required></label>
+          <label>Hash escaneo <input name="scanHash" value="abcd1234"></label>
+          <label>Hash selfie <input name="selfieHash" value="abcd9999"></label>
+          <label>Edad <input type="number" name="ageYears" value="24"></label>
+          <label><input type="checkbox" name="cleanBackground" checked> Fondo limpio</label>
+        </fieldset>
+
+        <button type="submit">Registrar + Validar</button>
+      </form>
+
+      <div id="caretaker-result" class="result"></div>
+
+      <h3>Agregar reseña verificada (RF3.4)</h3>
+      <form id="form-review">
+        <label>Índice cuidador <input name="index" type="number" value="0" min="0"></label>
+        <label>Nombre dueño <input name="ownerName" value="Ana"></label>
+        <label>Estrellas
+          <select name="stars">
+            <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+          </select>
+        </label>
+        <label><input type="checkbox" name="verified" checked> Verificada</label>
+        <button type="submit">Agregar reseña</button>
+      </form>
+      <div id="review-result" class="result"></div>
+
+      <h3>Cuidadores registrados</h3>
+      <button id="refresh-caretakers">Refrescar</button>
+      <div id="caretaker-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <small>Patrones GoF · Backend Node.js + Python · <a href="https://github.com" target="_blank">Fuente</a></small>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

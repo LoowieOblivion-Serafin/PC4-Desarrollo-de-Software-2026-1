@@ -22,11 +22,21 @@ python --version
 
 ## Ejecutar en local
 
-```powershell
-# Orquestador completo (3 secciones)
-node src/petapp/app.js
+### Frontend web (recomendado)
 
-# Alias via npm
+```powershell
+npm run web
+# abrir http://localhost:3000
+```
+
+Interfaz con 3 tabs (Reporte / Buscador / Cuidadores) que ejerce todos los
+patrones vía llamadas a la API REST.
+
+### Modo consola (sin UI)
+
+```powershell
+node src/petapp/app.js
+# alias:
 npm start
 ```
 
@@ -50,11 +60,23 @@ node src/facade/examples/imagesearch/ImageSearchTest.js
 
 1. `File → Open Folder…` → carpeta `skeleton/`
 2. Terminal integrado (`` Ctrl + ` ``)
-3. Ejecutar:
+3. Arrancar web:
    ```powershell
-   node src/petapp/app.js
+   npm run web
    ```
-4. Debug: `F5` con `.vscode/launch.json` (Node) apuntando a `src/petapp/app.js`.
+4. Abrir `http://localhost:3000` en el navegador o el panel Preview del IDE.
+5. Debug: `F5` con `.vscode/launch.json` (Node) apuntando a `src/petapp/server.js`.
+
+### API REST
+
+| Método | Ruta                          | Uso                                                |
+|--------|-------------------------------|----------------------------------------------------|
+| POST   | `/api/report`                 | Registrar mascota perdida + broadcast (RF1.1-1.4)  |
+| GET    | `/api/alerts`                 | Log de alertas entregadas                          |
+| POST   | `/api/search`                 | Buscador por imagen + intent (RF2.*)               |
+| POST   | `/api/caretaker/register`     | Alta cuidador + validación DNI (RF3.1-3.2, RNF3.1) |
+| POST   | `/api/caretaker/review`       | Agregar reseña verificada (RF3.4)                  |
+| GET    | `/api/caretaker`              | Listar cuidadores + rating (RNF3.2)                |
 
 ## Mapa Requerimiento → Patrón → Archivo
 
@@ -108,13 +130,18 @@ Rating promedio: 4.5
 
 ```
 skeleton/
-├── package.json              scripts npm
+├── package.json              scripts npm (start, web, test:*)
 ├── python/
 │   └── image_analyzer.py     motor vision (RNF2.1)
+├── public/                   frontend estatico
+│   ├── index.html            3 tabs: Reporte / Buscador / Cuidadores
+│   ├── styles.css
+│   └── app.js                fetch a /api/*
 └── src/
-    ├── petapp/               orquestador + dominio (Pet, Owner, Location, Sighting)
-    │   ├── app.js
-    │   └── domain/
+    ├── petapp/
+    │   ├── app.js            orquestador consola
+    │   ├── server.js         HTTP server nativo + rutas /api/*
+    │   └── domain/           Pet, Owner, Location, Sighting
     └── <patron>/
         ├── pattern/          contrato GoF canonico en JS
         └── examples/         caso de uso PetApp por patron

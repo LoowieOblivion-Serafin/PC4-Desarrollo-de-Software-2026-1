@@ -5,6 +5,7 @@
   "main": "src/petapp/app.js",
   "scripts": {
     "start": "node src/petapp/app.js",
+    "web":   "node src/petapp/server.js",
     "test:builder":  "node src/builder/examples/petreport/PetReportTest.js",
     "test:observer": "node src/observer/examples/lostpetalerts/LostPetAlertsTest.js",
     "test:proxy":    "node src/proxy/examples/owneranonymizer/AnonymizerTest.js",
